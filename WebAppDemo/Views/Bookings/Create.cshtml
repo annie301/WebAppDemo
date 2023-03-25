@@ -1,0 +1,134 @@
+﻿@using static WebAppDemo.Models.Booking;
+@model WebAppDemo.Models.Booking
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+
+<h1>Create</h1>
+
+<h4>Booking</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="BookingStartDate" class="control-label"></label>
+                <input asp-for="BookingStartDate" type="text" class="form-control" id="pickdate" placeholder="Select a date" />                    
+                <span asp-validation-for="BookingStartDate" class="text-danger"></span>                
+            </div>
+            <div class="form-group">
+                <label asp-for="FirstName" class="control-label"></label>
+                <input asp-for="FirstName" class="form-control" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>            
+            <div class="form-group">
+                <label asp-for="LastName" class="control-label"></label>
+                <input asp-for="LastName" class="form-control" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ContactNumber" class="control-label"></label>
+                <input asp-for="ContactNumber" class="form-control" />
+                <span asp-validation-for="ContactNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AddressLine1" class="control-label"></label>
+                <input asp-for="AddressLine1" class="form-control" />
+                <span asp-validation-for="AddressLine1" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AddressLine2" class="control-label"></label>
+                <input asp-for="AddressLine2" class="form-control" />
+                <span asp-validation-for="AddressLine2" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="City" class="control-label"></label>
+                <input asp-for="City" class="form-control" />
+                <span asp-validation-for="City" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Postcode" class="control-label"></label>
+                <input asp-for="Postcode" class="form-control" />
+                <span asp-validation-for="Postcode" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="VehicleRegNumber" class="control-label"></label>
+                <input asp-for="VehicleRegNumber" class="form-control" />
+                <span asp-validation-for="VehicleRegNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="JobCategory" class="control-label"></label>
+                <select asp-for="JobCategory" class="form-control" asp-items="Html.GetEnumSelectList<JobCategoryOption>()"></select>
+                <span asp-validation-for="JobCategory" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Comments" class="control-label"></label>
+                <input asp-for="Comments" class="form-control" />
+                <span asp-validation-for="Comments" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <link rel="stylesheet" type="text/css" href="/css/jquery.datetimepicker.min.css" />
+    <script src="/lib/jquery/dist/jquery.js"></script>
+    <script src="~/js/jquery.datetimepicker.full.min.js"></script>
+    <script>
+        function getAllowedTimes() {
+            if (new Date().getDay() == 1) {
+                return ['08:00', '11:00', '14:00']
+            } else if (new Date().getDay() == 2) {
+                return ['09:00', '12:00', '15:00']
+            } else {
+                return ['08:00', '11:00']
+            }
+        };    
+        
+        jQuery('#pickdate').datetimepicker({
+            minDate: '+1970/01/04',            
+            disabledWeekDays: [0, 6],
+            allowTimes: getAllowedTimes(),
+
+            onChangeDateTime: function (dp, $input) {
+                if (dp == null){
+                    return;
+                }
+                else if (dp.getFullYear() == 2023 & dp.getMonth() == 3 & dp.getDate() == 3){
+                    this.setOptions({
+                        allowTimes: ['08:00', '14:00']
+                    })
+                } else if (dp.getDay() == 1 || dp.getDay() == 3) {
+                    this.setOptions({
+                        allowTimes: ['08:00', '11:00', '14:00']
+                    })
+                } else if (dp.getDay() == 2 || dp.getDay() == 4) {
+                    this.setOptions({
+                        allowTimes: ['09:00', '12:00', '15:00']
+                    })
+                } else {
+                    this.setOptions({
+                        allowTimes: ['08:00', '11:00']
+                    })
+                }
+            }            
+        });
+    </script>
+} 
