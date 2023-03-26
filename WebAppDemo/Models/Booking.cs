@@ -9,6 +9,7 @@ namespace WebAppDemo.Models
 
         [Required]
         [Display(Name = "Appointment Date")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy HH:mm}", ApplyFormatInEditMode = true)]
         public DateTime BookingStartDate { get; set; }
 
         [Required]
@@ -53,11 +54,10 @@ namespace WebAppDemo.Models
 
         public enum JobCategoryOption
         {
-            Warranty = 0,
-            Breakdown = 1,
-
+            Breakdown = 0,            
             [Display(Name = "Vehicle of Road")]
-            VehicleOfRoad = 2
+            VehicleOfRoad = 1,
+            Warranty = 2
         }
     }
 }

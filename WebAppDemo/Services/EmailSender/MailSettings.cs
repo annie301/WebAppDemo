@@ -1,4 +1,4 @@
-﻿namespace WebAppDemo.Services.EmailSending
+﻿namespace WebAppDemo.Services.EmailSender
 {
     public class MailSettings
     {

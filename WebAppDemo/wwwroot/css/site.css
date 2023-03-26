@@ -40,3 +40,14 @@ body {
 .hidden {
     display: none;
 }
+
+th {
+    vertical-align: middle;    
+}
+
+th a {        
+    color: initial;
+    text-decoration: none;
+}
+
+  

@@ -9,10 +9,10 @@
 
 <h4>Booking</h4>
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<form asp-action="Edit">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="row">
+        <div class="col-md-4">
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
                 <label asp-for="BookingStartDate" class="control-label"></label>
@@ -40,6 +40,14 @@
                 <span asp-validation-for="ContactNumber" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="VehicleRegNumber" class="control-label"></label>
+                <input asp-for="VehicleRegNumber" class="form-control" />
+                <span asp-validation-for="VehicleRegNumber" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-1"></div>
+        <div class="col-md-4">
+            <div class="form-group">
                 <label asp-for="AddressLine1" class="control-label"></label>
                 <input asp-for="AddressLine1" class="form-control" />
                 <span asp-validation-for="AddressLine1" class="text-danger"></span>
@@ -59,11 +67,7 @@
                 <input asp-for="Postcode" class="form-control" />
                 <span asp-validation-for="Postcode" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="VehicleRegNumber" class="control-label"></label>
-                <input asp-for="VehicleRegNumber" class="form-control" />
-                <span asp-validation-for="VehicleRegNumber" class="text-danger"></span>
-            </div>
+
             <div class="form-group">
                 <label asp-for="JobCategory" class="control-label"></label>
                 <select asp-for="JobCategory" class="form-control" asp-items="Html.GetEnumSelectList<JobCategoryOption>()"></select>
@@ -74,13 +78,12 @@
                 <input asp-for="Comments" class="form-control" rows="5" />
                 <span asp-validation-for="Comments" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
-</div>
-
+    <div class="form-group">
+        <input type="submit" value="Save" class="btn btn-primary" />
+    </div>
+</form>
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
@@ -110,10 +113,13 @@
             onChangeDateTime: function (dp, $input) {
                 if (dp == null) {
                     return;
-                }
-                else if (dp.getFullYear() == 2023 & dp.getMonth() == 3 & dp.getDate() == 3) {
+                } else if (dp.getFullYear() == 2023 && dp.getMonth() == 3 && dp.getDate() == 3) {
                     this.setOptions({
                         allowTimes: ['08:00', '14:00']
+                    })
+                } else if (dp.getFullYear() == 2023 && dp.getMonth() == 3 && (dp.getDate() == 4 || dp.getDate() == 6)) {
+                    this.setOptions({
+                        allowTimes: ['12:00', '15:00']
                     })
                 } else if (dp.getDay() == 1 || dp.getDay() == 3) {
                     this.setOptions({

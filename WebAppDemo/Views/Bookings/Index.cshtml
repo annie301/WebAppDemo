@@ -1,7 +1,12 @@
-﻿@model IEnumerable<WebAppDemo.Models.Booking>
+﻿@model X.PagedList.IPagedList<WebAppDemo.Models.Booking>
+@using X.PagedList.Mvc.Core;
 
 @{
     ViewData["Title"] = "Index";
+}
+
+@{
+    ViewBag.Title = "Bookings";
 }
 
 @if (TempData["bookingdetails"] != null)
@@ -13,49 +18,58 @@
 }
 
 
-<h1>Index</h1>
+<h1>Bookings</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+
+
+@using (Html.BeginForm("Index", "Booking", FormMethod.Get))
+{
+    <p>
+        @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+        <input type="submit" value="Search" />
+    </p>
+}
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.BookingStartDate)
+                @Html.ActionLink("Appointment Date", "Index", new { sortOrder = ViewBag.DateSortParm, currentFilter=ViewBag.CurrentFilter})
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.FirstName)
+                First Name
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.LastName)
+                @Html.ActionLink("Last Name", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter=ViewBag.CurrentFilter})
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Email)
+                Email
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ContactNumber)
+                Contact Number
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.AddressLine1)
+                Address Line 1
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.AddressLine2)
+                Address Line 2
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.City)
+                @Html.ActionLink("City", "Index", new { sortOrder = ViewBag.CitySortParm, currentFilter=ViewBag.CurrentFilter})
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Postcode)
+                @Html.ActionLink("Postcode", "Index", new { sortOrder = ViewBag.PostcodeSortParm, currentFilter=ViewBag.CurrentFilter})
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.VehicleRegNumber)
+                @Html.ActionLink("Registration Number", "Index", new { sortOrder = ViewBag.RegNumSortParm, currentFilter=ViewBag.CurrentFilter})
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.JobCategory)
+                @Html.ActionLink("Job Category", "Index", new { sortOrder = ViewBag.JobCatSortParm, currentFilter=ViewBag.CurrentFilter})
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Comments)
+                Comments
             </th>
             <th></th>
         </tr>
@@ -108,6 +122,11 @@
 }
     </tbody>
 </table>
+<br />
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
 
 @section Scripts {
     <script>

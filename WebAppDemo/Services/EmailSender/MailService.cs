@@ -5,7 +5,7 @@ using MimeKit;
 using System.Text;
 using WebAppDemo.Models;
 
-namespace WebAppDemo.Services.EmailSending
+namespace WebAppDemo.Services.EmailSender
 {
     public class MailService : IMailService
     {

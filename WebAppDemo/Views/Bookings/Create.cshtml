@@ -10,20 +10,20 @@
 
 <h4>Booking</h4>
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<form asp-action="Create">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="row">
+        <div class="col-md-4">
             <div class="form-group">
                 <label asp-for="BookingStartDate" class="control-label"></label>
-                <input asp-for="BookingStartDate" type="text" class="form-control" id="pickdate" placeholder="Select a date" />                    
-                <span asp-validation-for="BookingStartDate" class="text-danger"></span>                
+                <input asp-for="BookingStartDate" type="text" class="form-control" id="pickdate" placeholder="Select a date" />
+                <span asp-validation-for="BookingStartDate" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="FirstName" class="control-label"></label>
                 <input asp-for="FirstName" class="form-control" />
                 <span asp-validation-for="FirstName" class="text-danger"></span>
-            </div>            
+            </div>
             <div class="form-group">
                 <label asp-for="LastName" class="control-label"></label>
                 <input asp-for="LastName" class="form-control" />
@@ -39,6 +39,14 @@
                 <input asp-for="ContactNumber" class="form-control" />
                 <span asp-validation-for="ContactNumber" class="text-danger"></span>
             </div>
+            <div class="form-group">
+                <label asp-for="VehicleRegNumber" class="control-label"></label>
+                <input asp-for="VehicleRegNumber" class="form-control" />
+                <span asp-validation-for="VehicleRegNumber" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-1"></div>
+        <div class="col-md-4">
             <div class="form-group">
                 <label asp-for="AddressLine1" class="control-label"></label>
                 <input asp-for="AddressLine1" class="form-control" />
@@ -60,11 +68,6 @@
                 <span asp-validation-for="Postcode" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="VehicleRegNumber" class="control-label"></label>
-                <input asp-for="VehicleRegNumber" class="form-control" />
-                <span asp-validation-for="VehicleRegNumber" class="text-danger"></span>
-            </div>
-            <div class="form-group">
                 <label asp-for="JobCategory" class="control-label"></label>
                 <select asp-for="JobCategory" class="form-control" asp-items="Html.GetEnumSelectList<JobCategoryOption>()"></select>
                 <span asp-validation-for="JobCategory" class="text-danger"></span>
@@ -74,13 +77,12 @@
                 <input asp-for="Comments" class="form-control" />
                 <span asp-validation-for="Comments" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
-</div>
-
+    <div class="form-group">
+        <input type="submit" value="Create" class="btn btn-primary" />
+    </div>
+</form>
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
@@ -110,10 +112,13 @@
             onChangeDateTime: function (dp, $input) {
                 if (dp == null){
                     return;
-                }
-                else if (dp.getFullYear() == 2023 & dp.getMonth() == 3 & dp.getDate() == 3){
+                } else if (dp.getFullYear() == 2023 && dp.getMonth() == 3 && dp.getDate() == 3){
                     this.setOptions({
                         allowTimes: ['08:00', '14:00']
+                    })
+                } else if (dp.getFullYear() == 2023 && dp.getMonth() == 3 && (dp.getDate() == 4 || dp.getDate() == 6)) {
+                    this.setOptions({
+                        allowTimes: ['12:00', '15:00']
                     })
                 } else if (dp.getDay() == 1 || dp.getDay() == 3) {
                     this.setOptions({

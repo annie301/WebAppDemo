@@ -78,7 +78,7 @@ namespace WebAppDemo.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Booking");
+                    b.ToTable("Booking", (string)null);
                 });
 #pragma warning restore 612, 618
         }

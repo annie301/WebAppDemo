@@ -1,6 +1,6 @@
 ﻿using WebAppDemo.Models;
 
-namespace WebAppDemo.Services.EmailSending
+namespace WebAppDemo.Services.EmailSender
 {
     public interface IMailService
     {
